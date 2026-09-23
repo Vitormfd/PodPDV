@@ -1,0 +1,129 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/inter";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter Variable", ui-sans-serif, sans-serif;
+
+  /* Ink — graphite-navy neutral scale used for dark-mode surfaces & text */
+  --color-ink-50: #eef1f3;
+  --color-ink-100: #dce1e5;
+  --color-ink-200: #b9c2c9;
+  --color-ink-300: #97a3ac;
+  --color-ink-400: #78838c;
+  --color-ink-500: #5b656d;
+  --color-ink-600: #444c53;
+  --color-ink-700: #333a40;
+  --color-ink-800: #262c31;
+  --color-ink-900: #1b2126;
+  --color-ink-950: #0e1114;
+
+  /* Accent — "vapor" teal, primary brand color */
+  --color-accent-50: #eaf7f5;
+  --color-accent-100: #cfede9;
+  --color-accent-200: #a3ddd5;
+  --color-accent-300: #74cbc0;
+  --color-accent-400: #4dbbae;
+  --color-accent-500: #2fa99b;
+  --color-accent-600: #24897e;
+  --color-accent-700: #1d6e65;
+  --color-accent-800: #17554e;
+  --color-accent-900: #123f3a;
+  --color-accent-950: #0b2622;
+
+  /* Semantic */
+  --color-success-50: #eaf8ee;
+  --color-success-100: #cdeed7;
+  --color-success-200: #a3dfb7;
+  --color-success-400: #52b579;
+  --color-success-500: #3b9e63;
+  --color-success-600: #2e7f4e;
+  --color-success-700: #24643d;
+  --color-success-900: #163a24;
+  --color-success-950: #0e2417;
+
+  --color-warning-50: #fbf3e4;
+  --color-warning-100: #f5e2be;
+  --color-warning-200: #ecce92;
+  --color-warning-400: #e0ad53;
+  --color-warning-500: #cf9636;
+  --color-warning-600: #a8752a;
+  --color-warning-700: #815921;
+  --color-warning-900: #4a3213;
+  --color-warning-950: #2e1f0c;
+
+  --color-danger-50: #fbeae8;
+  --color-danger-100: #f5cfc9;
+  --color-danger-200: #ebaaa1;
+  --color-danger-400: #d9695b;
+  --color-danger-500: #c94e3f;
+  --color-danger-600: #a83b2e;
+  --color-danger-700: #832e24;
+  --color-danger-900: #4a1a14;
+  --color-danger-950: #2e100c;
+}
+
+@layer base {
+  html {
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  body {
+    @apply bg-white text-slate-900 antialiased dark:bg-ink-950 dark:text-ink-50;
+  }
+
+  ::selection {
+    @apply bg-accent-500/25;
+  }
+
+  * {
+    @apply border-slate-200 dark:border-ink-800;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300 dark:bg-ink-700;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300 dark:bg-ink-700;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-ink-950;
+  }
+}

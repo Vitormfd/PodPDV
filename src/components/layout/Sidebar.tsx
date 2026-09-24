@@ -13,7 +13,7 @@ export function Sidebar() {
       <div className="flex h-14 items-center gap-2.5 border-b border-slate-200 px-4.5 dark:border-ink-800">
         <BrandMark className="h-8 w-8" />
         <div className="leading-tight">
-          <p className="font-display text-[14.5px] font-semibold text-slate-900 dark:text-ink-50">Vape PDV</p>
+          <p className="font-display text-[14.5px] font-semibold text-slate-900 dark:text-ink-50">Mata-Jega</p>
           <p className="text-[10.5px] text-slate-400 dark:text-ink-500">Controle de loja</p>
         </div>
       </div>

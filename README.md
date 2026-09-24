@@ -1,4 +1,4 @@
-# Vape PDV
+# Tabacaria Mata-Jega
 
 Sistema de ponto de venda para loja de vapes: vendas, estoque, fiado, clientes e relatórios.
 

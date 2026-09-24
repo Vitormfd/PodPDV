@@ -6,7 +6,7 @@
 --   values ('<uuid-do-usuario>', (select id from public.stores limit 1), 'Nome do Dono', 'owner');
 -- =========================================================================
 
-insert into public.stores (name) values ('Minha Loja de Vapes');
+insert into public.stores (name) values ('Tabacaria Mata-Jega');
 
 insert into public.categories (store_id, name)
 select id, unnest(array['E-liquids', 'Pods', 'Dispositivos', 'Acessórios', 'Resistências'])

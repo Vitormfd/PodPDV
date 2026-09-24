@@ -1,6 +1,6 @@
 # Vape PDV
 
-Sistema de ponto de venda para loja de vapes: vendas, estoque, fiado, caixa, clientes e relatórios.
+Sistema de ponto de venda para loja de vapes: vendas, estoque, fiado, clientes e relatórios.
 
 **Stack:** React + TypeScript (Vite) · Tailwind CSS · Supabase (Postgres + Auth) · Lucide Icons.
 
@@ -42,7 +42,7 @@ values ('<uuid-do-usuario>', (select id from stores limit 1), 'Nome do Dono', 'o
 
 ## 5. Teste de ponta a ponta
 
-Login → abrir caixa → venda à vista → venda fiada → conferir dashboard → receber pagamento de fiado → fechar caixa (confira a diferença entre esperado e contado).
+Login → venda à vista → venda fiada → conferir dashboard → receber pagamento de fiado.
 
 ## Estrutura
 
@@ -58,4 +58,4 @@ src/
 supabase/migrations/  schema, funções RPC transacionais, RLS e seed
 ```
 
-Operações críticas (venda, abertura/fechamento de caixa, pagamento de fiado) passam por funções RPC no Postgres (`supabase/migrations/0003_functions.sql`), não por lógica no frontend — isso garante consistência de estoque/caixa mesmo com múltiplos operadores simultâneos.
+Operações críticas (venda, pagamento de fiado) passam por funções RPC no Postgres (`supabase/migrations/0003_functions.sql`), não por lógica no frontend — isso garante consistência de estoque mesmo com múltiplos operadores simultâneos.

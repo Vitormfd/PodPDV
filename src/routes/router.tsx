@@ -9,7 +9,6 @@ import { StockMovementsPage } from '@/pages/StockMovementsPage'
 import { CustomersPage } from '@/pages/CustomersPage'
 import { CustomerDetailPage } from '@/pages/CustomerDetailPage'
 import { FiadoPage } from '@/pages/FiadoPage'
-import { CashRegisterPage } from '@/pages/CashRegisterPage'
 import { ReportsPage } from '@/pages/ReportsPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 
@@ -28,7 +27,6 @@ export const router = createBrowserRouter([
           { path: '/clientes', element: <CustomersPage /> },
           { path: '/clientes/:id', element: <CustomerDetailPage /> },
           { path: '/fiado', element: <FiadoPage /> },
-          { path: '/caixa', element: <CashRegisterPage /> },
           { path: '/relatorios', element: <ReportsPage /> },
         ],
       },

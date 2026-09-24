@@ -38,7 +38,6 @@ export async function registerReceivablePayment(input: {
   receivableId: string
   amount: number
   paymentMethod: ReceivablePaymentMethod
-  cashRegisterId: string | null
   notes: string | null
   allowOverpayment?: boolean
 }): Promise<ReceivablePayment> {
@@ -46,7 +45,6 @@ export async function registerReceivablePayment(input: {
     p_receivable_id: input.receivableId,
     p_amount: input.amount,
     p_payment_method: input.paymentMethod,
-    p_cash_register_id: input.cashRegisterId,
     p_notes: input.notes,
     p_allow_overpayment: input.allowOverpayment ?? false,
   })

@@ -5,7 +5,6 @@ import {
   ArrowLeftRight,
   Users,
   HandCoins,
-  Wallet,
   BarChart3,
   type LucideIcon,
 } from 'lucide-react'
@@ -28,7 +27,6 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { to: '/', label: 'Dashboard', icon: LayoutDashboard, mobilePrimary: true },
       { to: '/pdv', label: 'PDV', icon: ShoppingCart, mobilePrimary: true },
-      { to: '/caixa', label: 'Caixa', icon: Wallet },
     ],
   },
   {

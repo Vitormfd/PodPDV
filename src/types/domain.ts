@@ -5,8 +5,6 @@ export type Category = Database['public']['Tables']['categories']['Row']
 export type Customer = Database['public']['Tables']['customers']['Row']
 export type Sale = Database['public']['Tables']['sales']['Row']
 export type SaleItem = Database['public']['Tables']['sale_items']['Row']
-export type CashRegister = Database['public']['Tables']['cash_registers']['Row']
-export type CashMovement = Database['public']['Tables']['cash_movements']['Row']
 export type InventoryMovement = Database['public']['Tables']['inventory_movements']['Row']
 export type Receivable = Database['public']['Tables']['receivables']['Row']
 export type ReceivablePayment = Database['public']['Tables']['receivable_payments']['Row']
@@ -43,12 +41,6 @@ export interface ProfitReportRow {
   revenue: number
   cost: number
   profit: number
-}
-
-export interface CashRegisterTotal {
-  payment_method: string | null
-  direction: 'in' | 'out'
-  total: number
 }
 
 export type DateRangePreset = 'today' | '7d' | 'month' | 'custom'

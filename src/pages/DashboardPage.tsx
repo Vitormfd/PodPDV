@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { DollarSign, TrendingUp, ShoppingBag, HandCoins, AlertTriangle, Plus, Wallet, Trophy } from 'lucide-react'
+import { DollarSign, TrendingUp, ShoppingBag, HandCoins, AlertTriangle, Plus, Trophy } from 'lucide-react'
 import { Card, CardHeader, CardBody } from '@/components/ui/Card'
 import { StatCard } from '@/components/ui/StatCard'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -12,13 +12,11 @@ import { BestSellersList } from '@/components/dashboard/BestSellersList'
 import { LowStockList } from '@/components/dashboard/LowStockList'
 import { useDateRange } from '@/hooks/useDateRange'
 import { useDashboard } from '@/hooks/useDashboard'
-import { useCashRegister } from '@/contexts/CashRegisterContext'
 import { formatCurrency } from '@/lib/formatters'
 
 export function DashboardPage() {
   const { preset, setPreset, customFrom, setCustomFrom, customTo, setCustomTo, range } = useDateRange('today')
   const { summary, bestSellers, lowStock, dailySeries, loading } = useDashboard(range.from, range.to)
-  const { register } = useCashRegister()
 
   const avgTicket = summary && summary.sales_count > 0 ? summary.revenue / summary.sales_count : null
   const margin = summary && summary.revenue > 0 ? (summary.profit / summary.revenue) * 100 : null
@@ -29,7 +27,7 @@ export function DashboardPage() {
         <div>
           <h2 className="font-display text-[19px] font-semibold text-slate-900 dark:text-ink-50">Visão geral</h2>
           <p className="mt-0.5 text-[13px] text-slate-500 dark:text-ink-400">
-            Faturamento, estoque e caixa da loja em um só lugar.
+            Faturamento, estoque e vendas da loja em um só lugar.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2.5">
@@ -41,14 +39,6 @@ export function DashboardPage() {
             customTo={customTo}
             onCustomToChange={setCustomTo}
           />
-          {!register && (
-            <Link to="/caixa">
-              <Button variant="outline" size="sm">
-                <Wallet className="h-3.5 w-3.5" />
-                Abrir caixa
-              </Button>
-            </Link>
-          )}
           <Link to="/pdv">
             <Button size="sm">
               <Plus className="h-3.5 w-3.5" />

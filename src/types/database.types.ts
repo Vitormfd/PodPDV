@@ -118,7 +118,7 @@ export interface Database {
         Row: {
           id: string
           store_id: string
-          cash_register_id: string
+          cash_register_id: string | null
           customer_id: string | null
           sold_by: string
           subtotal: number
@@ -233,7 +233,6 @@ export interface Database {
     Functions: {
       create_sale: {
         Args: {
-          p_cash_register_id: string
           p_customer_id: string | null
           p_items: Json
           p_discount: number
@@ -258,28 +257,10 @@ export interface Database {
           p_receivable_id: string
           p_amount: number
           p_payment_method: string
-          p_cash_register_id: string | null
           p_notes: string | null
           p_allow_overpayment?: boolean
         }
         Returns: Database['public']['Tables']['receivable_payments']['Row']
-      }
-      open_cash_register: {
-        Args: { p_opening_balance: number }
-        Returns: Database['public']['Tables']['cash_registers']['Row']
-      }
-      close_cash_register: {
-        Args: { p_cash_register_id: string; p_counted_cash: number; p_notes: string | null }
-        Returns: Database['public']['Tables']['cash_registers']['Row']
-      }
-      add_manual_cash_movement: {
-        Args: {
-          p_cash_register_id: string
-          p_direction: string
-          p_amount: number
-          p_description: string | null
-        }
-        Returns: Database['public']['Tables']['cash_movements']['Row']
       }
       get_dashboard_summary: {
         Args: { p_date_from: string; p_date_to: string }
@@ -303,10 +284,6 @@ export interface Database {
           cost: number
           profit: number
         }[]
-      }
-      get_cash_register_totals: {
-        Args: { p_cash_register_id: string }
-        Returns: { payment_method: string | null; direction: 'in' | 'out'; total: number }[]
       }
     }
     Enums: Record<string, never>

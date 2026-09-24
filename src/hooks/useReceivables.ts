@@ -2,10 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { listReceivables, registerReceivablePayment } from '@/services/receivables.service'
 import type { Receivable } from '@/types/domain'
 import type { ReceivablePaymentMethod } from '@/lib/constants'
-import { useCashRegister } from '@/contexts/CashRegisterContext'
 
 export function useReceivables() {
-  const { register } = useCashRegister()
   const [receivables, setReceivables] = useState<Receivable[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -30,7 +28,6 @@ export function useReceivables() {
       receivableId,
       amount: input.amount,
       paymentMethod: input.paymentMethod,
-      cashRegisterId: register?.id ?? null,
       notes: input.notes,
       allowOverpayment: input.allowOverpayment,
     })

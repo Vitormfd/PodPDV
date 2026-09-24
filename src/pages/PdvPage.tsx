@@ -1,17 +1,12 @@
 import { useCallback, useMemo, useState } from 'react'
-import { Wallet } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
 import { ProductSearchPanel } from '@/components/pdv/ProductSearchPanel'
 import { Cart } from '@/components/pdv/Cart'
 import { PaymentModal } from '@/components/pdv/PaymentModal'
 import { SaleConfirmation } from '@/components/pdv/SaleConfirmation'
 import { CustomerFormModal, type CustomerFormValues } from '@/components/customers/CustomerFormModal'
-import { OpenRegisterModal } from '@/components/cash/OpenRegisterModal'
 import { useProducts } from '@/hooks/useProducts'
 import { useCategories } from '@/hooks/useCategories'
 import { useCustomers } from '@/hooks/useCustomers'
-import { useCashRegister } from '@/contexts/CashRegisterContext'
-import { openRegister } from '@/services/cashRegister.service'
 import { createSale } from '@/services/sales.service'
 import { useToast } from '@/contexts/ToastContext'
 import { newIdempotencyKey } from '@/lib/idempotency'
@@ -21,7 +16,6 @@ import type { PaymentMethod } from '@/lib/constants'
 const PRODUCT_FILTERS = { onlyActive: true }
 
 export function PdvPage() {
-  const { register, refresh: refreshRegister } = useCashRegister()
   const { products, loading: productsLoading } = useProducts(PRODUCT_FILTERS)
   const { categories } = useCategories()
   const { customers, add: addCustomer, refresh: refreshCustomers } = useCustomers()
@@ -31,7 +25,6 @@ export function PdvPage() {
   const [discount, setDiscount] = useState(0)
   const [paymentModalOpen, setPaymentModalOpen] = useState(false)
   const [customerModalOpen, setCustomerModalOpen] = useState(false)
-  const [openRegisterModalOpen, setOpenRegisterModalOpen] = useState(false)
   const [completedSale, setCompletedSale] = useState<Sale | null>(null)
   const [idempotencyKey, setIdempotencyKey] = useState(newIdempotencyKey())
 
@@ -77,9 +70,7 @@ export function PdvPage() {
   }, [])
 
   async function handleConfirmSale(input: { paymentMethod: PaymentMethod; customerId: string | null; cashReceived: number | null }) {
-    if (!register) return
     const sale = await createSale({
-      cashRegisterId: register.id,
       customerId: input.customerId,
       items: cartItems,
       discount,
@@ -101,30 +92,6 @@ export function PdvPage() {
     })
     await refreshCustomers()
     showToast('Cliente cadastrado', 'success')
-  }
-
-  async function handleOpenRegister(balance: number) {
-    await openRegister(balance)
-    await refreshRegister()
-    showToast('Caixa aberto com sucesso', 'success')
-  }
-
-  if (!register) {
-    return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-warning-50 dark:bg-warning-950">
-          <Wallet className="h-6 w-6 text-warning-600 dark:text-warning-400" />
-        </div>
-        <div>
-          <p className="font-display text-base font-semibold text-slate-900 dark:text-ink-50">Nenhum caixa aberto</p>
-          <p className="mt-1 max-w-sm text-[13px] text-slate-500 dark:text-ink-400">
-            Para registrar vendas é preciso abrir o caixa primeiro.
-          </p>
-        </div>
-        <Button onClick={() => setOpenRegisterModalOpen(true)}>Abrir caixa</Button>
-        <OpenRegisterModal open={openRegisterModalOpen} onClose={() => setOpenRegisterModalOpen(false)} onSubmit={handleOpenRegister} />
-      </div>
-    )
   }
 
   return (

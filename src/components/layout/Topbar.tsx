@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { Moon, Sun, LogOut, ChevronDown, CircleDot } from 'lucide-react'
+import { Moon, Sun, LogOut, ChevronDown } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
-import { useCashRegister } from '@/contexts/CashRegisterContext'
 import { useDarkMode } from '@/hooks/useDarkMode'
 import { signOut } from '@/services/auth.service'
 import { ROLE_LABELS } from '@/lib/constants'
-import { cn } from '@/lib/cn'
 
 const PAGE_META: Record<string, { title: string; description?: string }> = {
   '/': { title: 'Dashboard', description: 'Visão geral do desempenho da loja' },
@@ -14,13 +12,11 @@ const PAGE_META: Record<string, { title: string; description?: string }> = {
   '/estoque': { title: 'Movimentações de estoque' },
   '/clientes': { title: 'Clientes' },
   '/fiado': { title: 'Fiado', description: 'Contas a receber' },
-  '/caixa': { title: 'Caixa' },
   '/relatorios': { title: 'Relatórios', description: 'Desempenho financeiro' },
 }
 
 export function Topbar({ pathname }: { pathname: string }) {
   const { profile } = useAuth()
-  const { register } = useCashRegister()
   const { isDark, toggle } = useDarkMode()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -30,12 +26,6 @@ export function Topbar({ pathname }: { pathname: string }) {
     <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur dark:border-ink-800 dark:bg-ink-950/90 sm:px-6">
       <div className="flex items-center gap-3">
         <h1 className="font-display text-[15px] font-semibold text-slate-900 dark:text-ink-50">{meta.title}</h1>
-        <div className="hidden items-center gap-1.5 rounded-full border border-slate-200 px-2.5 py-1 dark:border-ink-700 sm:flex">
-          <CircleDot className={cn('h-2.5 w-2.5', register ? 'text-success-500' : 'text-ink-500')} fill="currentColor" />
-          <span className="text-[11.5px] font-medium text-slate-600 dark:text-ink-300">
-            {register ? 'Caixa aberto' : 'Caixa fechado'}
-          </span>
-        </div>
       </div>
 
       <div className="flex items-center gap-1.5">

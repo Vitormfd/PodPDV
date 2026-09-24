@@ -66,8 +66,3 @@ export const RECEIVABLE_STATUS_LABELS: Record<string, string> = {
   partially_paid: 'Parcialmente pago',
   paid: 'Quitado',
 }
-
-export const CASH_REGISTER_STATUS_LABELS: Record<string, string> = {
-  open: 'Aberto',
-  closed: 'Fechado',
-}

@@ -3,7 +3,6 @@ import type { CartItem, Sale, SaleItem } from '@/types/domain'
 import type { PaymentMethod } from '@/lib/constants'
 
 export interface CreateSaleInput {
-  cashRegisterId: string
   customerId: string | null
   items: CartItem[]
   discount: number
@@ -21,7 +20,6 @@ export async function createSale(input: CreateSaleInput): Promise<Sale> {
   }))
 
   const { data, error } = await supabase.rpc('create_sale', {
-    p_cash_register_id: input.cashRegisterId,
     p_customer_id: input.customerId,
     p_items: items,
     p_discount: input.discount,

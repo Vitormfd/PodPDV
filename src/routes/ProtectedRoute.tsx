@@ -1,7 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { LoadingState } from '@/components/ui/LoadingState'
-import { CashRegisterProvider } from '@/contexts/CashRegisterContext'
 
 export function ProtectedRoute() {
   const { session, loading } = useAuth()
@@ -18,9 +17,5 @@ export function ProtectedRoute() {
     return <Navigate to="/login" replace />
   }
 
-  return (
-    <CashRegisterProvider>
-      <Outlet />
-    </CashRegisterProvider>
-  )
+  return <Outlet />
 }

@@ -13,7 +13,7 @@ export function Sidebar() {
       <div className="flex h-16 items-center gap-2.5 border-b border-slate-200 px-4.5 dark:border-ink-800">
         <BrandMark className="h-11 w-11" />
         <div className="leading-tight">
-          <p className="font-display text-[14.5px] font-semibold text-slate-900 dark:text-ink-50">Mata Jega</p>
+          <p className="font-display text-[14.5px] font-semibold text-slate-900 dark:text-ink-50">Tabacaria Mata Jega</p>
           <p className="text-[10.5px] text-slate-400 dark:text-ink-500">Controle de loja</p>
         </div>
       </div>

@@ -4,8 +4,8 @@ export function BrandMark({ className }: { className?: string }) {
   return (
     <img
       src="/logo.png"
-      alt="Tabacaria Mata-Jega"
-      className={cn('shrink-0 rounded-md object-cover', className)}
+      alt="Tabacaria Mata Jega"
+      className={cn('shrink-0 object-contain', className)}
     />
   )
 }

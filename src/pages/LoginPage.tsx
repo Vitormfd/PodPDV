@@ -35,9 +35,9 @@ export function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 dark:bg-ink-950">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <BrandMark className="h-11 w-11" />
+          <BrandMark className="h-20 w-20" />
           <div>
-            <h1 className="font-display text-lg font-semibold text-slate-900 dark:text-ink-50">Tabacaria Mata-Jega</h1>
+            <h1 className="font-display text-lg font-semibold text-slate-900 dark:text-ink-50">Tabacaria Mata Jega</h1>
             <p className="mt-1 text-[13px] text-slate-500 dark:text-ink-400">Entre com sua conta para acessar o sistema</p>
           </div>
         </div>

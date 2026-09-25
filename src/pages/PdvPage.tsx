@@ -95,7 +95,7 @@ export function PdvPage() {
   }
 
   return (
-    <div className="grid h-[calc(100vh-5.5rem)] grid-cols-1 gap-3.5 md:h-[calc(100vh-3.5rem)] lg:grid-cols-[1fr_360px]">
+    <div className="grid h-[calc(100vh-6rem)] grid-cols-1 gap-3.5 md:h-[calc(100vh-4rem)] lg:grid-cols-[1fr_360px]">
       <div className="min-h-0 rounded-lg border border-slate-200 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
         <ProductSearchPanel products={products} categories={categories} loading={productsLoading} onAdd={addToCart} />
       </div>

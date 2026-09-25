@@ -20,10 +20,10 @@ export function Topbar({ pathname }: { pathname: string }) {
   const { isDark, toggle } = useDarkMode()
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const meta = PAGE_META[pathname] ?? { title: 'Mata-Jega' }
+  const meta = PAGE_META[pathname] ?? { title: 'Mata Jega' }
 
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur dark:border-ink-800 dark:bg-ink-950/90 sm:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur dark:border-ink-800 dark:bg-ink-950/90 sm:px-6">
       <div className="flex items-center gap-3">
         <h1 className="font-display text-[15px] font-semibold text-slate-900 dark:text-ink-50">{meta.title}</h1>
       </div>

@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useDarkMode } from '@/hooks/useDarkMode'
 import { signOut } from '@/services/auth.service'
 import { ROLE_LABELS } from '@/lib/constants'
+import { BrandMark } from './BrandMark'
 
 const PAGE_META: Record<string, { title: string; description?: string }> = {
   '/': { title: 'Dashboard', description: 'Visão geral do desempenho da loja' },
@@ -24,7 +25,8 @@ export function Topbar({ pathname }: { pathname: string }) {
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur dark:border-ink-800 dark:bg-ink-950/90 sm:px-6">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
+        <BrandMark className="h-8 w-8 md:hidden" />
         <h1 className="font-display text-[15px] font-semibold text-slate-900 dark:text-ink-50">{meta.title}</h1>
       </div>
 

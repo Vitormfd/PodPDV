@@ -31,7 +31,7 @@ export function SalesTrendChart({ points }: { points: DailyRevenuePoint[] }) {
           const heightPct = Math.max(3, Math.round((point.total / max) * 100))
           const isPeak = point.total === max && max > 0
           return (
-            <div key={point.date} className="group relative flex flex-1 flex-col items-center justify-end gap-1.5">
+            <div key={point.date} className="group relative flex h-full flex-1 flex-col items-center justify-end gap-1.5">
               <div className="pointer-events-none absolute -top-9 z-10 hidden whitespace-nowrap rounded-md bg-ink-950 px-2 py-1 text-[11px] font-medium text-ink-50 shadow-lg group-hover:block dark:bg-ink-800">
                 {formatCurrency(point.total)}
               </div>

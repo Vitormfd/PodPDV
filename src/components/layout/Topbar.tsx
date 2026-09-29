@@ -24,9 +24,9 @@ export function Topbar({ pathname }: { pathname: string }) {
   const meta = PAGE_META[pathname] ?? (pathname.startsWith('/clientes/') ? { title: 'Cliente' } : { title: 'Mata Jega' })
 
   return (
-    <header className="sticky top-0 z-30 flex min-h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 pt-[env(safe-area-inset-top)] backdrop-blur dark:border-ink-800 dark:bg-ink-950/90 sm:px-6">
+    <header className="sticky top-0 z-30 flex min-h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 pt-[calc(env(safe-area-inset-top)+0.625rem)] backdrop-blur dark:border-ink-800 dark:bg-ink-950/90 sm:px-6 md:pt-0">
       <div className="flex items-center gap-2.5">
-        <BrandMark className="h-8 w-8 md:hidden" />
+        <BrandMark className="h-10 w-10 md:hidden" />
         <h1 className="font-display text-[15px] font-semibold text-slate-900 dark:text-ink-50">{meta.title}</h1>
       </div>
 

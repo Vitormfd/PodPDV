@@ -11,7 +11,7 @@ export function AppLayout() {
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar pathname={pathname} />
-        <main className="mx-auto w-full max-w-screen-2xl flex-1 p-4 pb-20 sm:p-6 md:pb-6">
+        <main className="mx-auto w-full max-w-screen-2xl flex-1 p-4 pb-[calc(5rem+env(safe-area-inset-bottom))] sm:p-6 md:pb-6">
           <Outlet />
         </main>
       </div>

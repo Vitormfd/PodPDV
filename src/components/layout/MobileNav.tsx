@@ -10,7 +10,7 @@ export function MobileNav() {
 
   return (
     <>
-      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-slate-200 bg-white/95 backdrop-blur dark:border-ink-800 dark:bg-ink-900/95 md:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur dark:border-ink-800 dark:bg-ink-900/95 md:hidden">
         {primaryItems.map((item) => (
           <NavLink
             key={item.to}
@@ -39,7 +39,7 @@ export function MobileNav() {
       {drawerOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div className="fixed inset-0 bg-ink-950/60 backdrop-blur-[2px]" onClick={() => setDrawerOpen(false)} />
-          <div className="fixed inset-x-0 bottom-0 rounded-t-xl border-t border-slate-200 bg-white p-4 pb-8 shadow-2xl dark:border-ink-700 dark:bg-ink-900">
+          <div className="fixed inset-x-0 bottom-0 rounded-t-xl border-t border-slate-200 bg-white p-4 pb-[calc(2rem+env(safe-area-inset-bottom))] shadow-2xl dark:border-ink-700 dark:bg-ink-900">
             <div className="mx-auto mb-4 h-1 w-9 rounded-full bg-slate-300 dark:bg-ink-700" />
             {NAV_GROUPS.map((group) => (
               <div key={group.label} className="mb-4 last:mb-0">

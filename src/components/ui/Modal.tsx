@@ -60,7 +60,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
         </div>
         <div className="flex-1 overflow-y-auto px-5 py-4">{children}</div>
         {footer && (
-          <div className="flex items-center justify-end gap-2 border-t border-slate-200 bg-slate-50/60 px-5 py-3.5 dark:border-ink-800 dark:bg-ink-950/40">
+          <div className="flex items-center justify-end gap-2 border-t border-slate-200 bg-slate-50/60 px-5 py-3.5 pb-[calc(0.875rem+env(safe-area-inset-bottom))] dark:border-ink-800 dark:bg-ink-950/40 sm:pb-3.5">
             {footer}
           </div>
         )}

@@ -40,7 +40,17 @@ values ('<uuid-do-usuario>', (select id from stores limit 1), 'Nome do Dono', 'o
 3. Em **Authentication → URL Configuration** no Supabase, adicione o domínio da Vercel às Redirect URLs.
 4. Deploy.
 
-## 5. Teste de ponta a ponta
+## 5. Instalar como app (PWA)
+
+O sistema é um PWA: dá para instalar no celular sem passar pela App Store/Play Store.
+
+- **Android (Chrome):** abra o site → menu (⋮) → **Instalar app** (ou o banner que aparece sozinho).
+- **iPhone (Safari):** abra o site → botão de compartilhar → **Adicionar à Tela de Início**.
+- **Desktop (Chrome/Edge):** ícone de instalação na barra de endereço.
+
+Depois de instalado, abre em tela cheia como um app nativo, com ícone próprio, e funciona offline para a interface já carregada (dados sempre vêm do Supabase ao vivo — não há cache de vendas/estoque offline).
+
+## 6. Teste de ponta a ponta
 
 Login → venda à vista → venda fiada → conferir dashboard → receber pagamento de fiado.
 
@@ -48,8 +58,8 @@ Login → venda à vista → venda fiada → conferir dashboard → receber paga
 
 ```
 src/
-  components/   ui/ (base), layout/, e componentes por domínio (pdv, products, cash, fiado...)
-  contexts/     Auth, Toast, CashRegister
+  components/   ui/ (base), layout/, e componentes por domínio (pdv, products, fiado...)
+  contexts/     Auth, Toast
   hooks/        um hook por domínio, chamando apenas services/
   services/     única camada que fala com o Supabase (tabelas e RPCs)
   pages/        uma página por rota

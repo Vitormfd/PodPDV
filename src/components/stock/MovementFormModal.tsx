@@ -10,9 +10,22 @@ interface MovementFormModalProps {
   onClose: () => void
   products: Product[]
   onSubmit: (input: { productId: string; movementType: MovementType; quantity: number; unitCost: number | null; reason: string | null }) => Promise<void>
+  title?: string
+  initialProductId?: string
+  lockProduct?: boolean
+  restrictToStockIn?: boolean
 }
 
-export function MovementFormModal({ open, onClose, products, onSubmit }: MovementFormModalProps) {
+export function MovementFormModal({
+  open,
+  onClose,
+  products,
+  onSubmit,
+  title = 'Nova movimentação de estoque',
+  initialProductId,
+  lockProduct,
+  restrictToStockIn,
+}: MovementFormModalProps) {
   const [productId, setProductId] = useState('')
   const [movementType, setMovementType] = useState<MovementType>('compra')
   const [quantity, setQuantity] = useState('1')
@@ -23,17 +36,21 @@ export function MovementFormModal({ open, onClose, products, onSubmit }: Movemen
 
   const direction = MOVEMENT_DIRECTION[movementType]
   const selectedProduct = products.find((p) => p.id === productId)
+  const availableTypes = restrictToStockIn
+    ? MANUAL_MOVEMENT_TYPES.filter((t) => MOVEMENT_DIRECTION[t] === 'in')
+    : MANUAL_MOVEMENT_TYPES
 
   useEffect(() => {
     if (open) {
-      setProductId('')
+      setProductId(initialProductId ?? '')
       setMovementType('compra')
       setQuantity('1')
       setUnitCost('')
       setReason('')
       setError(null)
     }
-  }, [open])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, initialProductId])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -74,7 +91,7 @@ export function MovementFormModal({ open, onClose, products, onSubmit }: Movemen
     <Modal
       open={open}
       onClose={onClose}
-      title="Nova movimentação de estoque"
+      title={title}
       size="md"
       footer={
         <>
@@ -90,17 +107,26 @@ export function MovementFormModal({ open, onClose, products, onSubmit }: Movemen
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <p className="text-sm text-danger-600 dark:text-danger-400">{error}</p>}
 
-        <Select label="Produto" required value={productId} onChange={(e) => setProductId(e.target.value)}>
-          <option value="">Selecione um produto</option>
-          {products.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.name} (estoque: {p.stock_quantity})
-            </option>
-          ))}
-        </Select>
+        {lockProduct && selectedProduct ? (
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-slate-700 dark:text-ink-300">Produto</p>
+            <p className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-[13.5px] font-medium text-slate-900 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-100">
+              {selectedProduct.name} <span className="font-normal text-slate-400 dark:text-ink-500">(estoque: {selectedProduct.stock_quantity})</span>
+            </p>
+          </div>
+        ) : (
+          <Select label="Produto" required value={productId} onChange={(e) => setProductId(e.target.value)}>
+            <option value="">Selecione um produto</option>
+            {products.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name} (estoque: {p.stock_quantity})
+              </option>
+            ))}
+          </Select>
+        )}
 
         <Select label="Tipo de movimentação" value={movementType} onChange={(e) => setMovementType(e.target.value as MovementType)}>
-          {MANUAL_MOVEMENT_TYPES.map((t) => (
+          {availableTypes.map((t) => (
             <option key={t} value={t}>
               {MOVEMENT_TYPE_LABELS[t]}
             </option>

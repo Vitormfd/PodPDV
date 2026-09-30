@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Package, Plus, Pencil, Ban, CheckCircle2, AlertTriangle } from 'lucide-react'
+import { Package, Plus, Pencil, Ban, CheckCircle2, AlertTriangle, PackagePlus } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { SearchInput } from '@/components/ui/SearchInput'
@@ -11,10 +11,12 @@ import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { Table, THead, Th, TBody, Tr, Td } from '@/components/ui/Table'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { ProductFormModal, type ProductFormValues } from '@/components/products/ProductFormModal'
+import { MovementFormModal } from '@/components/stock/MovementFormModal'
 import { useProducts } from '@/hooks/useProducts'
 import { useCategories } from '@/hooks/useCategories'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/contexts/ToastContext'
+import { registerInventoryMovement } from '@/services/inventoryMovements.service'
 import { formatCurrency } from '@/lib/formatters'
 import type { Product } from '@/types/domain'
 
@@ -30,11 +32,12 @@ export function ProductsPage() {
     () => ({ search: search || undefined, categoryId: categoryId || undefined, onlyActive }),
     [search, categoryId, onlyActive]
   )
-  const { products, loading, add, edit, toggleActive } = useProducts(filters)
+  const { products, loading, add, edit, toggleActive, refresh } = useProducts(filters)
 
   const [formOpen, setFormOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [deactivateTarget, setDeactivateTarget] = useState<Product | null>(null)
+  const [stockTarget, setStockTarget] = useState<Product | null>(null)
 
   function openCreate() {
     setEditingProduct(null)
@@ -44,6 +47,12 @@ export function ProductsPage() {
   function openEdit(product: Product) {
     setEditingProduct(product)
     setFormOpen(true)
+  }
+
+  async function handleAddStock(input: Parameters<typeof registerInventoryMovement>[0]) {
+    await registerInventoryMovement(input)
+    await refresh()
+    showToast('Estoque atualizado com sucesso', 'success')
   }
 
   async function handleSubmit(values: ProductFormValues) {
@@ -163,6 +172,9 @@ export function ProductsPage() {
                     </Td>
                     <Td align="right">
                       <div className="flex justify-end gap-1">
+                        <Button variant="ghost" size="icon" onClick={() => setStockTarget(product)} aria-label="Adicionar estoque">
+                          <PackagePlus className="h-4 w-4" />
+                        </Button>
                         <Button variant="ghost" size="icon" onClick={() => openEdit(product)} aria-label="Editar">
                           <Pencil className="h-4 w-4" />
                         </Button>
@@ -194,6 +206,17 @@ export function ProductsPage() {
         onSubmit={handleSubmit}
         categories={categories}
         product={editingProduct}
+      />
+
+      <MovementFormModal
+        open={!!stockTarget}
+        onClose={() => setStockTarget(null)}
+        products={products}
+        onSubmit={handleAddStock}
+        title="Adicionar estoque"
+        initialProductId={stockTarget?.id}
+        lockProduct
+        restrictToStockIn
       />
 
       <ConfirmDialog
